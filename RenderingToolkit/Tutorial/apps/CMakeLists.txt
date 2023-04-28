@@ -2,6 +2,17 @@ cmake_minimum_required(VERSION 3.16)
 project(OSPRAY_APPS LANGUAGES CXX)
 
 include(CMakePrintHelpers)
+include(GNUInstallDirs)
+
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+list(APPEND CMAKE_MODULE_PATH
+  ${PROJECT_SOURCE_DIR}/cmake/dependencies
+)
+
 
 set(INSTALL_DIR_ABSOLUTE "Release")
 set(ONEAPI_ROOT "")
@@ -39,12 +50,17 @@ endif ()
 include(ExternalProject)
 include(cmake/ospray_macros.cmake)
 include(cmake/dependencies/dep_glm.cmake)
-include(cmake/dependencies/dep_glfw.cmake)
-set(glm_DIR "./build/glm/src/cmake")
+# include(cmake/dependencies/glfw.cmake)
+include(glfw)
+# add_subdirectory(external)
+# find_package(glfw)
+# set(glm_DIR "./build/glm/src/cmake")
 # find_package(glm CONFIG REQUIRED)
 # set(GLM_TARGET glm::glm)
 
+set(OpenGL_GL_PREFERENCE "LEGACY")
+find_package(OpenGL 2 REQUIRED)
 
 link_libraries(ospray rkcommon)
 
-add_all_subdirectories()
+add_all_subdirectories_except("external")

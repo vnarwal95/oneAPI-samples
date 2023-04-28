@@ -41,9 +41,12 @@ else()
     FetchContent_GetProperties(glfw)
     if(NOT glfw_POPULATED)
         FetchContent_Populate(glfw)
+        message(STATUS "Adding subdirectory for glfw ${glfw_SOURCE_DIR} and ${glfw_BINARY_DIR}")
+
         ## the subdir will still be built since targets depend on it, but it won't be installed
         add_subdirectory(${glfw_SOURCE_DIR} ${glfw_BINARY_DIR} EXCLUDE_FROM_ALL)
     endif()
+    message(STATUS "Adding glfw Library")
 
     add_library(glfw::glfw ALIAS glfw)
 
