@@ -7,8 +7,6 @@
 
 # prefer libGL over libOpenGl for better compatibility with SWR
 set(OpenGL_GL_PREFERENCE "LEGACY")
-find_package(OpenGL 2 REQUIRED)
-find_package(glfw3 REQUIRED)
 
 add_executable(ospExamples
   ${OSPRAY_RESOURCE}
@@ -21,7 +19,7 @@ target_link_libraries(ospExamples
 PRIVATE
   arcball_camera
   ospray_testing
-  ospray_imgui
+  imgui
   glfw
   ${OPENGL_LIBRARIES}
 )
