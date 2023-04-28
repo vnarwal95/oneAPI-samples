@@ -32,7 +32,22 @@
 #include "ospray/ospray_cpp/ext/rkcommon.h"
 #include "rkcommon/utility/SaveImage.h"
 
+#include <GLFW/glfw3.h>
+
+#include "imgui_impl_glfw_gl3.h"
+#include "imgui.h"
+
 using namespace rkcommon::math;
+
+void error_callback(int error, const char *desc)
+{
+  std::cerr << "error " << error << ": " << desc << std::endl;
+}
+
+void checkbox_callback(bool abc)
+{
+  std::cerr << "checkbox clicked " << std::endl;
+}
 
 int main(int argc, const char **argv)
 {
@@ -160,6 +175,46 @@ int main(int argc, const char **argv)
   }
 
   ospShutdown();
+
+  vec2i windowSize;
+  glfwSetErrorCallback(error_callback);
+
+    // initialize GLFW
+  if (!glfwInit()) {
+    throw std::runtime_error("Failed to initialize GLFW!");
+  }
+
+  glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
+  // create GLFW window
+  GLFWwindow *glfwWindow = glfwCreateWindow(
+      400, 400, "OSPRay Tutorial", nullptr, nullptr);
+
+  if (!glfwWindow) {
+    glfwTerminate();
+    throw std::runtime_error("Failed to create GLFW window!");
+  }
+
+  // make the window's context current
+  glfwMakeContextCurrent(glfwWindow);
+  bool abc = true;
+  ImGui_ImplGlfwGL3_Init(glfwWindow, true);
+
+  
+  while(true)
+  {
+ ImGuiWindowFlags flags = ImGuiWindowFlags_AlwaysAutoResize;
+      ImGui_ImplGlfwGL3_NewFrame();
+      ImGui::Begin("press 'g' to hide/show UI", nullptr, flags);
+      if (ImGui::Checkbox("show cells", &abc))
+        checkbox_callback(false);
+      ImGui::End();
+        ImGui::Render();
+      
+
+  }
+
+
+
 
 #ifdef _WIN32
   if (waitForKey) {

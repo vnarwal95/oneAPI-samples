@@ -16,7 +16,7 @@ add_executable(ospExamples
 )
 
 target_link_libraries(ospExamples
-PRIVATE
+PUBLIC
   arcball_camera
   ospray_testing
   imgui

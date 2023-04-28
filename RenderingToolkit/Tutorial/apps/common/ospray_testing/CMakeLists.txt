@@ -3,7 +3,7 @@
 
 include(GenerateExportHeader)
 
-add_library(ospray_testing SHARED
+add_library(ospray_testing STATIC
   ${OSPRAY_RESOURCE}
 
   ospray_testing.cpp
@@ -41,8 +41,6 @@ generate_export_header(ospray_testing)
 
 target_link_libraries(ospray_testing
 PUBLIC
-  ospray_sdk
-PRIVATE
   raw_to_amr
 )
 
