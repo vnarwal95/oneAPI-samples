@@ -7,8 +7,11 @@
 # ospray_sign_target(ospTutorial)
 
 # C++ version
-add_executable(ospTutorialCpp ${OSPRAY_RESOURCE} ospTutorial.cpp)
-# target_link_libraries(ospTutorialCpp PRIVATE ospray_sdk)
+add_executable(ospTutorialCpp ${OSPRAY_RESOURCE} ospTutorial.cpp imgui_impl_glfw_gl3.cpp)
+target_link_libraries(ospTutorialCpp PUBLIC 
+imgui
+glfw
+${OPENGL_LIBRARIES})
 # ospray_sign_target(ospTutorialCpp)
 
 # async version
