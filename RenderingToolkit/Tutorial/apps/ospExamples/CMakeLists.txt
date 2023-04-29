@@ -7,7 +7,7 @@
 
 # prefer libGL over libOpenGl for better compatibility with SWR
 set(OpenGL_GL_PREFERENCE "LEGACY")
-
+add_subdirectory(arcball_camera)
 add_executable(ospExamples
   ${OSPRAY_RESOURCE}
   GLFWOSPRayWindow.cpp
@@ -16,11 +16,10 @@ add_executable(ospExamples
 )
 
 target_link_libraries(ospExamples
-PUBLIC
-  arcball_camera
-  ospray_testing
-  imgui
-  glfw
+PUBLIC arcball_camera
+PUBLIC ospray_testing
+PUBLIC imgui
+PUBLIC glfw
   ${OPENGL_LIBRARIES}
 )
 

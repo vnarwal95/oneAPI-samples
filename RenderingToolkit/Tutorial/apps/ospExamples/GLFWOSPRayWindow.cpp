@@ -136,6 +136,8 @@ GLFWOSPRayWindow::GLFWOSPRayWindow(const vec2i &windowSize, bool denoiser)
   glfwSetErrorCallback(error_callback);
 
   // initialize GLFW
+  std::cout << "initialize GLFW" << std::endl;
+
   if (!glfwInit()) {
     throw std::runtime_error("Failed to initialize GLFW!");
   }
@@ -150,6 +152,8 @@ GLFWOSPRayWindow::GLFWOSPRayWindow(const vec2i &windowSize, bool denoiser)
     throw std::runtime_error("Failed to create GLFW window!");
   }
 
+  std::cout << " make the window's context current" << std::endl;
+
   // make the window's context current
   glfwMakeContextCurrent(glfwWindow);
 
@@ -158,6 +162,7 @@ GLFWOSPRayWindow::GLFWOSPRayWindow(const vec2i &windowSize, bool denoiser)
   // set initial OpenGL state
   glEnable(GL_TEXTURE_2D);
   glDisable(GL_LIGHTING);
+  std::cout << "  create OpenGL frame buffer texture" << std::endl;
 
   // create OpenGL frame buffer texture
   glGenTextures(1, &framebufferTexture);
@@ -862,17 +867,17 @@ void GLFWOSPRayWindow::commitOutstandingHandles()
 
 void GLFWOSPRayWindow::refreshScene(bool resetCamera)
 {
-  auto builder = testing::newBuilder(scene);
-  testing::setParam(builder, "rendererType", rendererTypeStr);
-  if (scene == "curves") {
-    testing::setParam(builder, "curveVariant", curveVariant);
-  } else if (scene == "unstructured_volume") {
-    testing::setParam(builder, "showCells", showUnstructuredCells);
-  }
-  testing::commit(builder);
+  // auto builder = testing::newBuilder(scene);
+  // testing::setParam(builder, "rendererType", rendererTypeStr);
+  // if (scene == "curves") {
+  //   testing::setParam(builder, "curveVariant", curveVariant);
+  // } else if (scene == "unstructured_volume") {
+  //   testing::setParam(builder, "showCells", showUnstructuredCells);
+  // }
+  // testing::commit(builder);
 
-  world = testing::buildWorld(builder);
-  testing::release(builder);
+  // world = testing::buildWorld(builder);
+  // testing::release(builder);
 
   switch (rendererType) {
   case OSPRayRendererType::PATHTRACER: {
@@ -897,7 +902,7 @@ void GLFWOSPRayWindow::refreshScene(bool resetCamera)
   renderer->setParam("backgroundColor", bgColor);
   addObjectToCommit(renderer->handle());
 
-  world.commit();
+  // world.commit();
 
   if (resetCamera) {
     // create the arcball camera model
@@ -907,8 +912,8 @@ void GLFWOSPRayWindow::refreshScene(bool resetCamera)
 
     // init camera
     camera.setParam("position", vec3f(0.0f, 0.0f, 1.0f));
-    updateCamera();
-    camera.commit();
+    // updateCamera();
+    // camera.commit();
   }
 }
 
