@@ -19,7 +19,7 @@ int main(int argc, const char *argv[])
 
   std::cout << "Created oSPRray window" << std::endl;
   glfwOSPRayWindow->mainLoop();
-  // glfwOSPRayWindow.reset();
+  glfwOSPRayWindow.reset();
 
   ospShutdown();
 

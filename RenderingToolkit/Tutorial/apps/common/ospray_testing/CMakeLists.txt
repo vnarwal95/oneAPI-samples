@@ -6,7 +6,12 @@ include(GenerateExportHeader)
 add_library(ospray_testing STATIC
   ${OSPRAY_RESOURCE}
 
-  ospray_testing.cpp
+  builders/ospray_testing.h
+
+  builders/ospray_testing.inl
+  builders/builder.h
+  builders/Noise.h
+  builders/ospray_testing.cpp
 
   builders/Boxes.cpp
   builders/Interpolation.cpp
@@ -35,25 +40,24 @@ add_library(ospray_testing STATIC
   builders/test_pt_metal_roughness.cpp
   builders/test_pt_metallic_flakes.cpp
   builders/test_pt_obj.cpp
+
 )
 
 generate_export_header(ospray_testing)
 
 target_link_libraries(ospray_testing
 PUBLIC
+  ospray
+PRIVATE
   raw_to_amr
 )
 
 target_include_directories(ospray_testing
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/ospray/ospray_testing>
+PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>/builders
 )
-
 ## Install library/headers ##
 
-# ospray_install_library(ospray_testing apps)
+# ospray_install_library(ospray_testing "")
 
 install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ospray

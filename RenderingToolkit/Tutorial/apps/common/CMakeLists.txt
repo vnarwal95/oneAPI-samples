@@ -7,4 +7,4 @@
 #   return()
 # endif()
 
-add_all_subdirectories_except("arcball_camera")
+add_all_subdirectories_except("")

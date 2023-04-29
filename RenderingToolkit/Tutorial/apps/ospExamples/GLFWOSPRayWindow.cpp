@@ -4,7 +4,7 @@
 #include "GLFWOSPRayWindow.h"
 #include "imgui_impl_glfw_gl3.h"
 // ospray_testing
-#include "ospray_testing.h"
+#include <ospray_testing.h>
 #include "rkcommon/utility/random.h"
 // imgui
 #include "imgui.h"
@@ -867,17 +867,17 @@ void GLFWOSPRayWindow::commitOutstandingHandles()
 
 void GLFWOSPRayWindow::refreshScene(bool resetCamera)
 {
-  // auto builder = testing::newBuilder(scene);
+  auto builder = testing::newBuilder(scene);
   // testing::setParam(builder, "rendererType", rendererTypeStr);
-  // if (scene == "curves") {
-  //   testing::setParam(builder, "curveVariant", curveVariant);
-  // } else if (scene == "unstructured_volume") {
-  //   testing::setParam(builder, "showCells", showUnstructuredCells);
-  // }
-  // testing::commit(builder);
+  if (scene == "curves") {
+    testing::setParam(builder, "curveVariant", curveVariant);
+  } else if (scene == "unstructured_volume") {
+    testing::setParam(builder, "showCells", showUnstructuredCells);
+  }
+  testing::commit(builder);
 
-  // world = testing::buildWorld(builder);
-  // testing::release(builder);
+  world = testing::buildWorld(builder);
+  testing::release(builder);
 
   switch (rendererType) {
   case OSPRayRendererType::PATHTRACER: {
@@ -902,7 +902,7 @@ void GLFWOSPRayWindow::refreshScene(bool resetCamera)
   renderer->setParam("backgroundColor", bgColor);
   addObjectToCommit(renderer->handle());
 
-  // world.commit();
+  world.commit();
 
   if (resetCamera) {
     // create the arcball camera model
@@ -912,8 +912,8 @@ void GLFWOSPRayWindow::refreshScene(bool resetCamera)
 
     // init camera
     camera.setParam("position", vec3f(0.0f, 0.0f, 1.0f));
-    // updateCamera();
-    // camera.commit();
+    updateCamera();
+    camera.commit();
   }
 }
 
