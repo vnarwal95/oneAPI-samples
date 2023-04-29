@@ -136,7 +136,6 @@ GLFWOSPRayWindow::GLFWOSPRayWindow(const vec2i &windowSize, bool denoiser)
   glfwSetErrorCallback(error_callback);
 
   // initialize GLFW
-  std::cout << "initialize GLFW" << std::endl;
 
   if (!glfwInit()) {
     throw std::runtime_error("Failed to initialize GLFW!");
@@ -152,7 +151,6 @@ GLFWOSPRayWindow::GLFWOSPRayWindow(const vec2i &windowSize, bool denoiser)
     throw std::runtime_error("Failed to create GLFW window!");
   }
 
-  std::cout << " make the window's context current" << std::endl;
 
   // make the window's context current
   glfwMakeContextCurrent(glfwWindow);
@@ -162,7 +160,6 @@ GLFWOSPRayWindow::GLFWOSPRayWindow(const vec2i &windowSize, bool denoiser)
   // set initial OpenGL state
   glEnable(GL_TEXTURE_2D);
   glDisable(GL_LIGHTING);
-  std::cout << "  create OpenGL frame buffer texture" << std::endl;
 
   // create OpenGL frame buffer texture
   glGenTextures(1, &framebufferTexture);

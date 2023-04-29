@@ -10,7 +10,6 @@ template <typename T>
 inline void setParam(
     SceneBuilderHandle _b, const std::string &type, const T &val)
 {
-  std::cout << "inside cnl" <<std::endl;
   auto *b = (detail::Builder *)_b;
   b->setParam(type, val);
 }
