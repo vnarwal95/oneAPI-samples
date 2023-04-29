@@ -107,7 +107,6 @@ add_executable(ospExamples
 
 target_link_libraries(ospExamples
 PUBLIC arcball_camera
-PUBLIC ospray_testing
 PUBLIC imgui
 PUBLIC glfw
   ${OPENGL_LIBRARIES}
