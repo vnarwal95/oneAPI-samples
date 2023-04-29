@@ -52,14 +52,9 @@ endif ()
 
 include(ExternalProject)
 include(cmake/ospray_macros.cmake)
-include(cmake/dependencies/dep_glm.cmake)
-# include(cmake/dependencies/glfw.cmake)
+
 include(glfw)
-# add_subdirectory(external)
-# find_package(glfw)
-# set(glm_DIR "./build/glm/src/cmake")
-# find_package(glm CONFIG REQUIRED)
-# set(GLM_TARGET glm::glm)
+
 
 set(OpenGL_GL_PREFERENCE "LEGACY")
 find_package(OpenGL 2 REQUIRED)
