@@ -45,12 +45,6 @@ endif(MSVC)
 include_directories(${OSPRAY_INCLUDE_DIR} ${RKCOMMON_INCLUDE_DIRS})
 link_directories(${OSPRAY_ROOT}/lib ${ONEAPI_ROOT}/rkcommon/latest/lib)
 
-if (POLICY CMP0114)
-  # allow old CMake behavior: NO_DEPENDS for ExternalProject_Add_StepTargets
-  cmake_policy(SET CMP0114 OLD) # 3.19
-endif ()
-
-include(ExternalProject)
 include(cmake/ospray_macros.cmake)
 
 include(glfw)
