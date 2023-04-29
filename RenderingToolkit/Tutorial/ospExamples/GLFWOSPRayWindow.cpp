@@ -4,7 +4,7 @@
 #include "GLFWOSPRayWindow.h"
 #include "imgui_impl_glfw_gl3.h"
 // ospray_testing
-#include <ospray_testing.h>
+#include "ospray_testing/ospray_testing.h"
 #include "rkcommon/utility/random.h"
 // imgui
 #include "imgui.h"
